@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101311">
+  <meta name="description" content="SparkShift is a 36-hour buildathon in Bengaluru. Bring a team, choose a challenge and build something that matters.">
+  <title>SparkShift 2027 — Make Good Things Happen</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #101311;
+      --paper: #f0eee6;
+      --muted: #a5aaa1;
+      --acid: #d7ff42;
+      --pink: #ff6d8d;
+      --line: rgba(240, 238, 230, .17);
+      --display: "Arial Black", "Arial Bold", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.5;
+    }
+    a { color: inherit; }
+    button, input, select { font: inherit; }
+    button, a, input, select { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 3px solid var(--acid); outline-offset: 4px; }
+    .wrap { width: min(1160px, calc(100% - 48px)); margin-inline: auto; }
+    .eyebrow {
+      color: var(--acid);
+      font-size: .73rem;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .topbar {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+    }
+    .brand {
+      color: var(--paper);
+      font-family: var(--display);
+      font-size: 1.05rem;
+      letter-spacing: -.06em;
+      text-decoration: none;
+    }
+    .brand span { color: var(--acid); }
+    .nav { display: flex; align-items: center; gap: 30px; }
+    .nav a { font-size: .84rem; text-decoration: none; color: #d2d3cc; }
+    .nav a:hover { color: var(--acid); }
+    .nav .nav-cta {
+      padding: 10px 15px;
+      border: 1px solid var(--acid);
+      color: var(--acid);
+      font-weight: 700;
+    }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 92px 0 74px;
+      background:
+        radial-gradient(ellipse at 82% 37%, rgba(215,255,66,.11), transparent 34%),
+        radial-gradient(ellipse at 92% 78%, rgba(255,109,141,.11), transparent 28%);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 470px;
+      height: 470px;
+      right: -112px;
+      top: 52px;
+      border: 1px solid rgba(215,255,66,.3);
+      border-radius: 50%;
+      box-shadow: 0 0 0 38px rgba(215,255,66,.035), 0 0 0 82px rgba(215,255,66,.025);
+      pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 760px; }
+    .hero h1 {
+      margin: 19px 0 22px;
+      font: 900 clamp(4rem, 11vw, 8.5rem)/.84 var(--display);
+      letter-spacing: -.095em;
+      text-transform: uppercase;
+    }
+    .hero h1 span { color: var(--acid); }
+    .hero-copy { max-width: 490px; color: #c4c8be; font-size: 1.1rem; }
+    .hero-actions { display: flex; align-items: center; gap: 23px; margin-top: 32px; }
+    .button {
+      display: inline-flex;
+      min-height: 49px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px;
+      border: 0;
+      background: var(--acid);
+      color: var(--ink);
+      font-weight: 800;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform .18s ease, background .18s ease;
+    }
+    .button:hover { transform: translateY(-2px); background: #e4ff83; }
+    .text-link { font-size: .9rem; text-decoration-color: var(--acid); text-underline-offset: 5px; }
+    .hero-stamp {
+      position: absolute;
+      right: 12%;
+      bottom: 29px;
+      z-index: 1;
+      width: 126px;
+      height: 126px;
+      display: grid;
+      place-content: center;
+      border: 1px solid var(--pink);
+      border-radius: 50%;
+      color: var(--pink);
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+      line-height: 1.5;
+      text-align: center;
+      transform: rotate(12deg);
+    }
+    .hero-stamp strong { font: 900 1.5rem var(--display); letter-spacing: -.06em; }
+    .ticker {
+      overflow: hidden;
+      padding: 12px 0;
+      background: var(--acid);
+      color: var(--ink);
+      font-size: .76rem;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    .ticker span { padding: 0 20px; }
+    .ticker b { color: #586d00; }
+    .section { padding: 88px 0; }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 32px; margin-bottom: 36px; }
+    .section h2 {
+      margin: 8px 0 0;
+      font: 900 clamp(2.4rem, 6vw, 4.4rem)/.95 var(--display);
+      letter-spacing: -.08em;
+      text-transform: uppercase;
+    }
+    .section-intro { max-width: 365px; margin: 0; color: var(--muted); }
+    .details-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); }
+    .detail { min-height: 144px; padding: 24px 20px 20px 0; border-bottom: 1px solid var(--line); }
+    .detail + .detail { padding-left: 22px; border-left: 1px solid var(--line); }
+    .detail-label { color: var(--muted); font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .detail strong { display: block; margin-top: 12px; font-size: 1.18rem; }
+    .detail small { display: block; margin-top: 5px; color: var(--muted); font-size: .82rem; }
+    .theme-band {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 48px;
+      align-items: center;
+      padding: 45px;
+      background: #1a1e19;
+      border: 1px solid var(--line);
+    }
+    .theme-band h2 { font-size: clamp(2.5rem, 5vw, 4.4rem); }
+    .theme-band p { margin: 0; max-width: 475px; color: #c4c8be; font-size: 1.04rem; }
+    .tracks { display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px; margin-top: 35px; }
+    .track {
+      min-height: 155px;
+      padding: 19px;
+      border: 1px solid var(--line);
+      background: #151915;
+    }
+    .track-number { color: var(--acid); font-size: .72rem; font-weight: 800; }
+    .track h3 { margin: 28px 0 5px; font-size: 1rem; }
+    .track p { margin: 0; color: var(--muted); font-size: .82rem; }
+    .schedule { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+    .schedule-list { border-top: 1px solid var(--line); }
+    .schedule-row { display: grid; grid-template-columns: 112px 1fr; gap: 18px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+    .schedule-row time { color: var(--acid); font-size: .78rem; font-weight: 800; }
+    .schedule-row strong { display: block; font-size: .96rem; }
+    .schedule-row span { color: var(--muted); font-size: .82rem; }
+    .fee-card { padding: 30px; background: var(--acid); color: var(--ink); }
+    .fee-card .eyebrow { color: #455500; }
+    .fee-card h3 { margin: 12px 0 0; font: 900 2.4rem/.95 var(--display); letter-spacing: -.07em; }
+    .fee-card > p { margin: 12px 0 22px; color: #3a421d; font-size: .9rem; }
+    .fee-line { display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-top: 1px solid rgba(16,19,17,.22); font-size: .9rem; }
+    .fee-total { margin-top: 9px; font-size: 1.2rem; font-weight: 900; }
+    .included { padding-left: 18px; margin: 16px 0 0; color: #333b18; font-size: .83rem; }
+    .registration { background: #1a1e19; }
+    .registration-layout { display: grid; grid-template-columns: .8fr 1.2fr; gap: 60px; align-items: start; }
+    .register-copy { position: sticky; top: 24px; }
+    .register-copy p { max-width: 350px; color: var(--muted); }
+    .deadline {
+      display: inline-block;
+      margin-top: 13px;
+      padding: 10px 12px;
+      border: 1px solid var(--pink);
+      color: var(--pink);
+      font-size: .78rem;
+      font-weight: 800;
+    }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 17px; }
+    .field { display: flex; flex-direction: column; gap: 7px; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { color: #d8dbd2; font-size: .79rem; font-weight: 700; }
+    .field input, .field select {
+      width: 100%;
+      min-height: 46px;
+      padding: 10px 12px;
+      border: 1px solid #444a42;
+      border-radius: 0;
+      background: #111411;
+      color: var(--paper);
+    }
+    .field input::placeholder { color: #7f857b; }
+    .fee-summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      margin: 22px 0;
+      padding: 17px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .fee-summary span { color: var(--muted); font-size: .85rem; }
+    .fee-summary strong { color: var(--acid); font-size: 1.35rem; }
+    .consent { display: flex; align-items: start; gap: 10px; color: #c4c8be; font-size: .8rem; }
+    .consent input { accent-color: var(--acid); margin-top: 3px; }
+    .form-note { margin: 14px 0 0; color: var(--muted); font-size: .75rem; }
+    .success {
+      display: none;
+      margin-top: 18px;
+      padding: 16px;
+      border: 1px solid var(--acid);
+      color: var(--acid);
+      font-size: .9rem;
+    }
+    .success.visible { display: block; }
+    .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 38px; }
+    details { padding: 18px 0; border-top: 1px solid var(--line); }
+    summary { cursor: pointer; font-weight: 700; }
+    details p { margin: 12px 0 0; color: var(--muted); font-size: .9rem; }
+    footer { padding: 26px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: .78rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
+
+    @media (max-width: 760px) {
+      .wrap { width: min(100% - 34px, 600px); }
+      .topbar { min-height: 64px; }
+      .nav { gap: 14px; }
+      .nav a:not(.nav-cta) { display: none; }
+      .hero { padding: 80px 0 100px; }
+      .hero h1 { font-size: clamp(4rem, 20vw, 7rem); }
+      .hero-stamp { right: 7%; bottom: 17px; width: 95px; height: 95px; font-size: .58rem; }
+      .hero-stamp strong { font-size: 1.2rem; }
+      .hero::after { width: 330px; height: 330px; right: -175px; top: 160px; }
+      .section { padding: 66px 0; }
+      .section-head { align-items: start; flex-direction: column; gap: 15px; }
+      .details-grid { grid-template-columns: 1fr 1fr; }
+      .detail:nth-child(3) { padding-left: 0; border-left: 0; }
+      .detail:nth-child(2) { border-left: 1px solid var(--line); }
+      .theme-band { grid-template-columns: 1fr; gap: 15px; padding: 27px; }
+      .tracks { grid-template-columns: 1fr 1fr; }
+      .schedule, .registration-layout { grid-template-columns: 1fr; gap: 34px; }
+      .register-copy { position: static; }
+    }
+    @media (max-width: 460px) {
+      .hero-actions { align-items: flex-start; flex-direction: column; gap: 15px; }
+      .details-grid { grid-template-columns: 1fr 1fr; }
+      .detail { min-height: 130px; }
+      .detail strong { font-size: 1rem; }
+      .tracks, .faq-grid, .form-grid { grid-template-columns: 1fr; }
+      .field.full { grid-column: auto; }
+      .schedule-row { grid-template-columns: 88px 1fr; }
+      .fee-card { padding: 23px; }
+      .footer-inner { flex-direction: column; gap: 6px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="wrap topbar">
+    <a class="brand" href="#" aria-label="SparkShift home">SPARK<span>SHIFT</span> / 27</a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#about">The event</a>
+      <a href="#schedule">Schedule</a>
+      <a href="#faq">FAQ</a>
+      <a class="nav-cta" href="#register">Register ↗</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-content">
+        <div class="eyebrow">Bengaluru · 16–17 January 2027</div>
+        <h1>Make<br><span>good</span><br>things.</h1>
+        <p class="hero-copy">A 36-hour buildathon for people who want to turn bold ideas into useful things. Bring your curiosity. Leave with a prototype.</p>
+        <div class="hero-actions">
+          <a class="button" href="#register">Build with us <span aria-hidden="true">&nbsp;↗</span></a>
+          <a class="text-link" href="#about">See what it’s about ↓</a>
+        </div>
+      </div>
+      <div class="hero-stamp" aria-label="36 hours of making"><strong>36</strong> HOURS<br>ONE BIG IDEA</div>
+    </section>
+
+    <div class="ticker" aria-label="Event highlights">
+      <span>Make it matter</span><b>✳</b><span>Learn by doing</span><b>✳</b><span>Meet your people</span><b>✳</b><span>Make it matter</span>
+    </div>
+
+    <section class="section wrap" id="about">
+      <div class="section-head">
+        <div><div class="eyebrow">The essentials</div><h2>One weekend.<br>Big energy.</h2></div>
+        <p class="section-intro">No perfect pitch required. Just a team, an open mind, and 36 hours to make a positive difference through technology and creativity.</p>
+      </div>
+      <div class="details-grid">
+        <div class="detail"><span class="detail-label">When</span><strong>16–17 Jan 2027</strong><small>Saturday 9 AM – Sunday 9 PM</small></div>
+        <div class="detail"><span class="detail-label">Where</span><strong>BMSIT, Bengaluru</strong><small>On-campus, in person</small></div>
+        <div class="detail"><span class="detail-label">Who</span><strong>All makers welcome</strong><small>Students & early-career builders</small></div>
+        <div class="detail"><span class="detail-label">Team size</span><strong>2–4 people</strong><small>Bring a team or meet one here</small></div>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="theme-title">
+      <div class="theme-band">
+        <div><div class="eyebrow">2027 challenge</div><h2 id="theme-title">Build for a<br>better everyday.</h2></div>
+        <p>How might we use technology to make life more inclusive, resilient, and sustainable? Find a real-world problem, then build something that helps solve it. Your idea can be an app, a device, a service, or something entirely unexpected.</p>
+      </div>
+      <div class="tracks" aria-label="Challenge tracks">
+        <article class="track"><span class="track-number">01 / PLANET</span><h3>Climate & circularity</h3><p>Waste less. Restore more.</p></article>
+        <article class="track"><span class="track-number">02 / ACCESS</span><h3>Inclusive learning</h3><p>Make knowledge open to all.</p></article>
+        <article class="track"><span class="track-number">03 / PLACE</span><h3>Better communities</h3><p>Make everyday systems work better.</p></article>
+        <article class="track"><span class="track-number">04 / WILD CARD</span><h3>Open innovation</h3><p>Surprise us with your own idea.</p></article>
+      </div>
+    </section>
+
+    <section class="section wrap" id="schedule">
+      <div class="section-head">
+        <div><div class="eyebrow">Your 36-hour sprint</div><h2>Make time<br>for making.</h2></div>
+        <p class="section-intro">A little structure, lots of room to explore. All times are IST; the full run-of-show will be shared with registered teams.</p>
+      </div>
+      <div class="schedule">
+        <div>
+          <div class="eyebrow" style="margin-bottom:14px">Saturday · 16 Jan</div>
+          <div class="schedule-list">
+            <div class="schedule-row"><time>09:00 AM</time><div><strong>Doors open + check-in</strong><span>Find your space and meet the crew.</span></div></div>
+            <div class="schedule-row"><time>10:00 AM</time><div><strong>Kickoff + challenge reveal</strong><span>Get inspired, form a plan, start building.</span></div></div>
+            <div class="schedule-row"><time>01:00 PM</time><div><strong>Build time begins</strong><span>Mentors, meals, and maker time.</span></div></div>
+            <div class="schedule-row"><time>08:00 PM</time><div><strong>Check-in with mentors</strong><span>Get feedback and keep iterating.</span></div></div>
+          </div>
+        </div>
+        <div>
+          <div class="eyebrow" style="margin-bottom:14px">Sunday · 17 Jan</div>
+          <div class="schedule-list">
+            <div class="schedule-row"><time>09:00 AM</time><div><strong>One last day to build</strong><span>Polish your prototype and your story.</span></div></div>
+            <div class="schedule-row"><time>03:00 PM</time><div><strong>Submit your project</strong><span>Show what you made and who it helps.</span></div></div>
+            <div class="schedule-row"><time>05:00 PM</time><div><strong>Live demos + judging</strong><span>Share the work with everyone.</span></div></div>
+            <div class="schedule-row"><time>08:00 PM</time><div><strong>Awards + closing</strong><span>Celebrate, connect, and take it further.</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="fees-title">
+      <div class="section-head">
+        <div><div class="eyebrow">Good to know</div><h2 id="fees-title">All in.<br>Nothing hidden.</h2></div>
+        <p class="section-intro">Registration is per person. Every teammate registers individually using the same team name. Choose the rate that applies to you.</p>
+      </div>
+      <div class="fee-card">
+        <div class="eyebrow">Registration fee / person</div>
+        <h3>Build more.<br>Worry less.</h3>
+        <p>Pick your ticket type in the registration form. Your team total updates automatically.</p>
+        <div class="fee-line"><span>Student</span><strong>₹299 / person</strong></div>
+        <div class="fee-line"><span>Professional</span><strong>₹799 / person</strong></div>
+        <div class="fee-line fee-total"><span>Includes for every participant</span><span>Meals · snacks · event kit</span></div>
+        <ul class="included"><li>36 hours of workspace and Wi-Fi</li><li>Mentor sessions and workshop access</li><li>Certificate of participation</li></ul>
+      </div>
+    </section>
+
+    <section class="section registration" id="register">
+      <div class="wrap registration-layout">
+        <div class="register-copy">
+          <div class="eyebrow">Your next idea starts here</div>
+          <h2>Save your<br>spot.</h2>
+          <p>Teams of 2–4. Each teammate should complete their own registration with the same team name. Spots are limited.</p>
+          <span class="deadline">Registration closes 10 Jan 2027 · 11:59 PM IST</span>
+        </div>
+        <div>
+          <form id="registration-form">
+            <div class="form-grid">
+              <div class="field"><label for="team">Team name</label><input id="team" name="team" placeholder="e.g. The Bright Side" required maxlength="60"></div>
+              <div class="field"><label for="name">Your full name</label><input id="name" name="name" autocomplete="name" placeholder="Avery Patel" required maxlength="80"></div>
+              <div class="field"><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required></div>
+              <div class="field"><label for="phone">Phone number</label><input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+91 98765 43210" required maxlength="24"></div>
+              <div class="field"><label for="institution">College / organization</label><input id="institution" name="institution" placeholder="Where you study or work" required maxlength="100"></div>
+              <div class="field"><label for="size">Total team size</label><select id="size" name="size" required><option value="2">2 people</option><option value="3">3 people</option><option value="4">4 people</option></select></div>
+              <div class="field"><label for="ticket">Your ticket type</label><select id="ticket" name="ticket"><option value="student">Student — ₹299</option><option value="professional">Professional — ₹799</option></select></div>
+              <div class="field"><label for="track">Challenge track</label><select id="track" name="track" required><option value="">Choose a track</option><option>Climate & circularity</option><option>Inclusive learning</option><option>Better communities</option><option>Open innovation</option></select></div>
+              <div class="field full">
+                <div class="fee-summary"><span id="fee-caption">Your team estimate · 2 students</span><strong id="fee-total">₹598</strong></div>
+              </div>
+              <div class="field full">
+                <label class="consent"><input type="checkbox" name="agreement" required><span>I confirm I’m at least 18, agree to the event code of conduct, and understand the selected fee is per person.</span></label>
+              </div>
+              <div class="field full"><button class="button" type="submit">Review my registration ↗</button><p class="form-note">Prototype form: details stay in this browser and are not sent to event organizers. Connect a registration service before launch.</p></div>
+            </div>
+          </form>
+          <div class="success" id="success-message" role="status" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="faq">
+      <div class="section-head">
+        <div><div class="eyebrow">Questions? Sorted.</div><h2>Quick answers.</h2></div>
+      </div>
+      <div class="faq-grid">
+        <details><summary>Do I need a team before registering?</summary><p>You can register solo and use the event’s team-matching session, but your final team must have 2–4 people. For now, enter a temporary team name and update it with the organizers when team matching opens.</p></details>
+        <details><summary>Who can participate?</summary><p>Students and early-career professionals aged 18 or older are welcome. Beginners are encouraged; you do not need hackathon experience.</p></details>
+        <details><summary>What should I bring?</summary><p>Bring your laptop, charger, valid photo ID, and anything specific your project needs. Meals, snacks, workspace, and Wi-Fi are included.</p></details>
+        <details><summary>Is the registration fee refundable?</summary><p>Refund and cancellation terms will be provided by the event organizers before payment is collected. No payment is taken through this prototype page.</p></details>
+        <details><summary>Do we need a finished project?</summary><p>No. Start with an idea, build a working prototype during the event, and present what you learned. Projects are judged on usefulness, creativity, feasibility, and the clarity of your demo.</p></details>
+        <details><summary>What can we win?</summary><p>There will be prizes for standout projects and track winners. Prize details and judging criteria will be announced at kickoff.</p></details>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner"><span class="brand">SPARK<span>SHIFT</span> / 27</span><span>Make good things happen · Bengaluru · January 2027</span></div>
+  </footer>
+
+  <script>
+    const form = document.querySelector("#registration-form");
+    const size = document.querySelector("#size");
+    const ticket = document.querySelector("#ticket");
+    const phone = document.querySelector("#phone");
+    const feeTotal = document.querySelector("#fee-total");
+    const feeCaption = document.querySelector("#fee-caption");
+    const successMessage = document.querySelector("#success-message");
+    const currency = new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
+      maximumFractionDigits: 0
+    });
+
+    function updateFee() {
+      const teamSize = Number(size.value);
+      const ticketType = ticket.value;
+      const pricePerPerson = ticketType === "student" ? 299 : 799;
+      const ticketLabel = ticketType === "student" ? "students" : "professionals";
+      feeCaption.textContent = `Your team estimate · ${teamSize} ${ticketLabel}`;
+      feeTotal.textContent = currency.format(teamSize * pricePerPerson);
+    }
+
+    size.addEventListener("change", updateFee);
+    ticket.addEventListener("change", updateFee);
+    phone.addEventListener("input", () => {
+      const digits = phone.value.replace(/\D/g, "").length;
+      phone.setCustomValidity(phone.value && (digits < 7 || digits > 15)
+        ? "Enter a phone number containing 7–15 digits."
+        : "");
+    });
+    updateFee();
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+
+      const data = new FormData(form);
+      const team = data.get("team");
+      const name = data.get("name");
+      successMessage.textContent = `Thanks, ${name}! Your registration for team “${team}” is ready to review. This prototype did not send or save your details.`;
+      successMessage.classList.add("visible");
+      successMessage.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
+  </script>
+</body>
+</html>
